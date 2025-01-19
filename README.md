@@ -68,7 +68,6 @@ export default function App() {
 - [x] Dialog
 - [x] Text
 - [x] Carousel
-- [ ] Bottom Sheet
 - [x] Snackbar
 - [ ] Bottom Sheet
 - [ ] Time/Date Picker
