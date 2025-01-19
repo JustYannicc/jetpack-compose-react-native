@@ -23,7 +23,7 @@ data class DatePickerProps(
     var confirmText: String? = null,
     var dismissText: String? = null,
     var tonalElevation: Int? = null,
-    var showModeToggle: Boolean = false,
+    var showModeToggle: Boolean? = true,
 )
 
 class DatePickerView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
@@ -67,4 +67,36 @@ class DatePickerView(context: Context, appContext: AppContext) : ExpoView(contex
 @Composable
 fun DatePickerComposable(props: DatePickerProps) {
     val modifier: Modifier = props.modifier.toModifier()
+    val datePickerState = rememberDatePickerState()
+    val openDialog = remember { mutableStateOf(true) }
+
+    DatePickerDialog(
+        onDismissRequest = {
+            openDialog.value = false
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    /* Selected date event */
+                }
+            ) {
+                Text(props.confirmText ?: "OK")
+            }
+        },
+        dismissButton = {
+        TextButton(
+            onClick = {
+                openDialog.value = false
+                }
+            ) {
+                Text(props.dismissText ?: "Cancel")
+            }
+        },
+        tonalElevation = props.tonalElevation?.dp ?: AlertDialogDefaults.TonalElevation
+    ) {
+        DatePicker(
+            state = datePickerState,
+            showModeToggle = props.showModeToggle,
+        )
+    }    
 }
