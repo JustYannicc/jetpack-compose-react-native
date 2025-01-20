@@ -82,5 +82,5 @@ dependencies {
   // Optional - Add window size utils
   implementation 'androidx.compose.material3.adaptive:adaptive'
   // Reflect API
-  implementation 'org.jetbrains.kotlin:kotlin-reflect:1.9.23'
+  implementation 'org.jetbrains.kotlin:kotlin-reflect:1.9.24'
 }
