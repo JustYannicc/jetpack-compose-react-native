@@ -29,7 +29,6 @@ data class DatePickerProps(
 class DatePickerView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
     private var props = mutableStateOf(DatePickerProps())
     private val onConfirm by EventDispatcher()
-    private val onDismiss by EventDispatcher()
 
     init {
         ComposeView(context).also {

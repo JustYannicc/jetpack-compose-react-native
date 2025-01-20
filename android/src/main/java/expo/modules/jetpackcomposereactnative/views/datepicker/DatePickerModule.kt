@@ -9,6 +9,7 @@ class DatePickerModule : Module() {
         Name("DatePickerView")
 
         View(DatePickerView::class) {
+            Events("onConfirm")
             Prop("tonalElevation") { view: DatePickerView, prop: Int ->
                 view.updateTonalElevation(prop)
             }
