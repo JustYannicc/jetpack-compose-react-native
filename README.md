@@ -70,7 +70,7 @@ export default function App() {
 - [x] Carousel
 - [x] Snackbar
 - [ ] Bottom Sheet
-- [ ] Time/Date Picker
+- [x] Time/Date Picker (WIP...)
 - [x] LazyColumn/Row (just add a `lazy` prop to the existing components)
 - [x] LazyGrid (vertical and horizontal props from the same component)
 - [x] LazyStaggeredGrid (vertical and horizontal props from the same component)
