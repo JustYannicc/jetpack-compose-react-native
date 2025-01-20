@@ -7,9 +7,8 @@ import expo.modules.kotlin.modules.ModuleDefinition
 class DatePickerModule : Module() {
     override fun definition() = ModuleDefinition {
         Name("DatePickerView")
-
         View(DatePickerView::class) {
-            Events("onConfirm")
+            Events("onConfirm", "onDismiss")
             Prop("showModeToggle") { view: DatePickerView, prop: Boolean -> 
                 view.updateShowModeToggle(prop)
             }

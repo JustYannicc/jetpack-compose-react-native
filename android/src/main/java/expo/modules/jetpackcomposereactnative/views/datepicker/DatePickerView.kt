@@ -31,6 +31,7 @@ data class DatePickerProps(
 class DatePickerView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
     private var props = mutableStateOf(DatePickerProps())
     private val onConfirm by EventDispatcher()
+    private val onDismiss by EventDispatcher()
 
     init {
         ComposeView(context).also {
@@ -38,7 +39,8 @@ class DatePickerView(context: Context, appContext: AppContext) : ExpoView(contex
             it.setContent {
                 DatePickerComposable(
                     props = props.value, 
-                    onConfirmation = onConfirm
+                    onConfirmation = onConfirm,
+                    onDismissRequest = onDismiss
                 )
             }
             addView(it)
@@ -70,20 +72,20 @@ class DatePickerView(context: Context, appContext: AppContext) : ExpoView(contex
 @Composable
 fun DatePickerComposable(
     props: DatePickerProps,
-    onConfirmation: ViewEventCallback<Map<String, Any>>
+    onConfirmation: ViewEventCallback<Map<String, Any>>,
+    onDismissRequest: ViewEventCallback<Map<String, Any>>
 ) {
     val modifier: Modifier = props.modifier.toModifier()
     val datePickerState = rememberDatePickerState()
-    val openDialog = remember { mutableStateOf(true) }
 
     DatePickerDialog(
         onDismissRequest = {
-            openDialog.value = false
+            onDismissRequest(mapOf())
         },
         confirmButton = {
             TextButton(
                 onClick = {
-                    /* Selected date event */
+                    onConfirmation(mapOf())
                 }
             ) {
                 Text(props.confirmText ?: "OK")
@@ -92,7 +94,7 @@ fun DatePickerComposable(
         dismissButton = {
         TextButton(
             onClick = {
-                openDialog.value = false
+                onDismissRequest(mapOf())
                 }
             ) {
                 Text(props.dismissText ?: "Cancel")

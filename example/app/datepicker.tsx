@@ -7,12 +7,17 @@ export default function DialogsExample() {
 
   return (
     <ScrollView style={{ flex: 1 }} contentContainerStyle={{ padding: 20 }}>
-      <Text style={styles.header}>Dialogs Example</Text>
+      <Text style={styles.header}>Datepickers Example</Text>
       {datePickerVisible && (
-        <DatePicker showModeToggle confirmText="Confirm" dismissText="Cancel" />
+        <DatePicker
+          showModeToggle
+          confirmText="Confirm"
+          dismissText="Cancel"
+          onDismiss={() => setDatePickerVisible(!datePickerVisible)}
+        />
       )}
       <Button
-        text="Show Date picker"
+        text="Show DatePicker"
         onClick={() => {
           setDatePickerVisible(true);
         }}
