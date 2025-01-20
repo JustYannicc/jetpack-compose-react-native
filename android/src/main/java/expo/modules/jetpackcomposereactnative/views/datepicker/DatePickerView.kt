@@ -17,13 +17,15 @@ import expo.modules.jetpackcomposereactnative.common.ModifierProp
 import expo.modules.jetpackcomposereactnative.common.toModifier
 import expo.modules.kotlin.AppContext
 import expo.modules.kotlin.views.ExpoView
+import expo.modules.kotlin.viewevent.EventDispatcher
+import expo.modules.kotlin.viewevent.ViewEventCallback
 
 data class DatePickerProps(
     var modifier: ModifierProp = emptyList(),
     var confirmText: String? = null,
     var dismissText: String? = null,
     var tonalElevation: Int? = null,
-    var showModeToggle: Boolean? = true,
+    var showModeToggle: Boolean? = null,
 )
 
 class DatePickerView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
@@ -34,9 +36,8 @@ class DatePickerView(context: Context, appContext: AppContext) : ExpoView(contex
         ComposeView(context).also {
             it.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
             it.setContent {
-                DialogComposable(
+                DatePickerComposable(
                     props = props.value, 
-                    onDismissRequest = onDismiss,
                     onConfirmation = onConfirm
                 )
             }
@@ -44,6 +45,9 @@ class DatePickerView(context: Context, appContext: AppContext) : ExpoView(contex
         }
     }
 
+    fun updateShowModeToggle(showModeToggle: Boolean){
+        props.value = props.value.copy(showModeToggle = showModeToggle)
+    }
 
     fun updateTonalElevation(tonalElevation: Int) {
         props.value = props.value.copy(tonalElevation = tonalElevation)
@@ -62,9 +66,12 @@ class DatePickerView(context: Context, appContext: AppContext) : ExpoView(contex
     }
 }
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DatePickerComposable(props: DatePickerProps) {
+fun DatePickerComposable(
+    props: DatePickerProps,
+    onConfirmation: ViewEventCallback<Map<String, Any>>
+) {
     val modifier: Modifier = props.modifier.toModifier()
     val datePickerState = rememberDatePickerState()
     val openDialog = remember { mutableStateOf(true) }
@@ -95,7 +102,7 @@ fun DatePickerComposable(props: DatePickerProps) {
     ) {
         DatePicker(
             state = datePickerState,
-            showModeToggle = props.showModeToggle,
+            showModeToggle = props.showModeToggle ?: true,
         )
     }    
 }
