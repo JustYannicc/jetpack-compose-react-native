@@ -27,6 +27,7 @@ const examples = [
   "grids",
   "boxes",
   "dialogs",
+  "datepicker",
   "snackbars",
   "images",
   "carousel",
